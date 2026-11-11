@@ -6,6 +6,7 @@ module vga_timing(
     output wire hsync,
     output wire vsync,
     output wire active_video,
+    output wire frame_start,
     output reg [9:0] h_count,
     output reg [9:0] v_count
 );
@@ -57,5 +58,6 @@ assign vsync = !(
 );
 
 assign active_video = (h_count < H_VISIBLE) && (v_count < V_VISIBLE);
+assign frame_start = (h_count == 0) && (v_count == V_VISIBLE);
 
 endmodule

@@ -7,7 +7,8 @@ module vga_controller(
     output wire vsync,
 
     output wire [3:0] r,g,b,
-    output wire active_video
+    output wire active_video,
+    output wire frame_start
 );
 
 wire [9:0] h_count, v_count;
@@ -19,7 +20,8 @@ vga_timing timing (
     .vsync(vsync),
     .h_count(h_count),
     .v_count(v_count),
-    .active_video(active_video)
+    .active_video(active_video),
+    .frame_start(frame_start)
 );
 
 vga_color color (

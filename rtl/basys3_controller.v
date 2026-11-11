@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 module basys3_controller(
     input wire clk,
     input wire btnC,
@@ -17,6 +18,17 @@ clk_wiz_0 u_clk(
     .locked(locked)
 );
 
+wire frame_start;
+
+box_mover u_box_mover (
+    .clk(clk),
+    .rst(rst),
+    .frame_start(frame_start),
+    .offset_x(box_x),
+    .offset_y(box_y)
+);
+
+
 
 wire rst = btnC | ~locked;
 
@@ -31,7 +43,8 @@ vga_controller u_vga (
     .r(vgaRed),
     .g(vgaGreen),
     .b(vgaBlue),
-    .active_video()
+    .active_video(),
+    .frame_start(frame_start)
 );
 
 assign box_x = 10'd100;
