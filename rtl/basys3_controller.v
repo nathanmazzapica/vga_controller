@@ -2,6 +2,7 @@
 module basys3_controller(
     input wire clk,
     input wire btnC,
+    input wire btnU, btnR, btnL, btnD,
     output [3:0] vgaRed,
     output [3:0] vgaBlue,
     output [3:0] vgaGreen,
@@ -9,6 +10,8 @@ module basys3_controller(
 );
 
 wire pix_clk, locked;
+
+wire [3:0] mov = {btnU, btnR, btnL, btnD};
 
 
 clk_wiz_0 u_clk(
@@ -24,6 +27,7 @@ box_mover u_box_mover (
     .clk(clk),
     .rst(rst),
     .frame_start(frame_start),
+    .mov(mov),
     .offset_x(box_x),
     .offset_y(box_y)
 );
