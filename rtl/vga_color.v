@@ -1,4 +1,6 @@
-module vga_color(
+module vga_color#(
+    parameter BOX_SIZE = 32
+)(
     input wire [9:0] h_count,
     input wire [9:0] v_count,
     input wire active_video,
@@ -9,27 +11,34 @@ module vga_color(
 integer sq_width = 32;
 integer sq_height = 32;
 
+localparam [11:0] PURPLE = 12'hF0F;
+localparam [11:0] RED = 12'hF00;
+localparam [11:0] GREEN = 12'h00F;
+localparam [11:0] BLUE = 12'h00F;
+localparam [11:0] ORANGE = 12'hFA5;
+localparam [11:0] BLACK = 12'h000;
+
+wire [11:0] tile_color;
+
+tilemap u_tiles (
+    .h_count(h_count),
+    .v_count(v_count),
+    .color(tile_color)
+);
+
+
 wire is_checker = h_count[5] ^ v_count[5];
 
+wire in_box = (h_count >= offset_x) && (h_count < offset_x + BOX_SIZE) &&
+                (v_count >= offset_y) && (v_count < offset_y + BOX_SIZE);
+
 always @(*) begin
-    r = 4'b0000;
-    g = 4'b0000;
-    b = 4'b0000;
+    {r, g, b} = BLACK;
     if (active_video) begin
-        if (is_checker) begin
-            r = 4'b0111;
-            g = 4'b0000;
-            b = 4'b1100;
-        end
+        {r, g, b} = tile_color;
 
-        if (h_count >= offset_x && h_count < offset_x + sq_width &&
-            v_count >= offset_y && v_count < offset_y + sq_height) begin 
-            r = 4'b0000;
-            g = 4'b1111;
-            b = 4'b0000;
-        end
-
-
+        if (in_box)
+            {r, g, b} = ORANGE;
     end
 end
 endmodule

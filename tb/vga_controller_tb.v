@@ -23,7 +23,8 @@ vga_controller dut(
     .r(r),
     .g(g),
     .b(b),
-    .active_video(active_video)
+    .active_video(active_video),
+    .frame_start()
 );
 
 always #20 clk = ~clk;
@@ -39,7 +40,7 @@ initial begin
     rst = 0;
     //$dumpfile("vga_controller.vcd");
     //$dumpvars(0, vga_controller_tb);
-    for (frame = 0; frame < 120; frame = frame + 1) begin
+    for (frame = 0; frame < 1; frame = frame + 1) begin
         file = $fopen($sformatf("frame_%03d.ppm", frame), "w");
         if (file == 0)
             $fatal(1, "Failed to open output.ppm");

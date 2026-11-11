@@ -1,0 +1,17 @@
+// 16-color palette, 12-bit RGB (one hex digit per channel)
+000  // 0 black
+70C  // 1 purple
+0F0  // 2 green (same as box - avoid)
+F00  // 3 red
+00F  // 4 blue
+FF0  // 5 yellow
+0FF  // 6 cyan
+F0F  // 7 magenta
+FFF  // 8 white
+888  // 9 gray
+444  // A dark gray
+F80  // B orange
+08F  // C sky blue
+060  // D dark green
+840  // E brown
+222  // F near black
