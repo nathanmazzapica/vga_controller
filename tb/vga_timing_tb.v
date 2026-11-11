@@ -6,6 +6,8 @@ reg rst = 0;
 
 wire hsync;
 wire vsync;
+wire [9:0] h_count, v_count;
+wire frame_start;
 //
 // actual visible columns
 // all values measured in clock cycles
@@ -28,7 +30,10 @@ vga_timing dut(
     .clk(clk),
     .rst(rst),
     .hsync(hsync),
-    .vsync(vsync)
+    .vsync(vsync),
+    .frame_start(frame_start),
+    .h_count(h_count),
+    .v_count(v_count)
 );
 
 // 1 / 25 MHz = 40ns cycle
@@ -53,6 +58,23 @@ initial begin
         expected_h = cycle % 800;
         expected_v = (cycle / 800) % 525;
 
+        if (expected_h == 0 && expected_v == V_VISIBLE) begin
+            if (frame_start !== 1'b1) begin
+                $display ("TEST FAILED: frame_start should be high");
+                $display ("frame_start: %0d", frame_start);
+                $display ("Cycle : %0d", cycle);
+                $display ("Expected H : %0d", expected_h);
+                $display ("Expected V : %0d", expected_v);
+                $display ("actual h,v: %0d , %0d", h_count, v_count);
+            end
+        end
+        else begin
+            if (frame_start !== 1'b0) begin
+                $display("TEST FAILED: frame_start should be LOW");
+                $display("Cycle: %0d  H: %0d  V: %0d", cycle, expected_h, expected_v);
+            end
+        end
+
         if (expected_h >= H_VISIBLE + H_FP &&
             expected_h < H_VISIBLE + H_FP + H_SYNC
         ) begin
@@ -64,7 +86,7 @@ initial begin
         end
         else begin
             if (hsync !== 1'b1) begin
-                $display ("TEST FAILED: H_SYNC SHOULD BE LOW");
+                $display ("TEST FAILED: H_SYNC SHOULD BE HIGH");
                 $display ("Cycle : %0d", cycle);
                 $display ("Expected H : %0d", expected_h);
             end
@@ -81,7 +103,7 @@ initial begin
         end
         else begin
             if (vsync !== 1'b1) begin
-                $display ("TEST FAILED: V_SYNC SHOULD BE LOW");
+                $display ("TEST FAILED: V_SYNC SHOULD BE HIGH");
                 $display ("Cycle : %0d", cycle);
                 $display ("Expected V : %0d", expected_v);
             end

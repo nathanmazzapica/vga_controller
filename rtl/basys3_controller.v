@@ -47,7 +47,4 @@ vga_controller u_vga (
     .frame_start(frame_start)
 );
 
-assign box_x = 10'd100;
-assign box_y = 10'd100;
-
 endmodule
