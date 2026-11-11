@@ -1,0 +1,6 @@
+*.ppm
+*.gif
+.DS_Store
+*.png
+*.vcd
+*_sim
