@@ -17,19 +17,24 @@ always @(posedge clk) begin
         offset_x <= 10'b0;
         offset_y <= 10'b0;
         frame_counter <= 0;
-    end
-    if (move_tick) begin
-        frame_counter <= 0;
-        if (mov[UP])
-            offset_y <= offset_y - 1;
-        if (mov[DOWN])
-            offset_y <= offset_y + 1;
-        if (mov[RIGHT])
-            offset_x <= offset_x + 1;
-        if (mov[LEFT])
-            offset_x <= offset_x - 1;
     end else begin
-        frame_counter <= frame_counter + 1;
+        if (frame_start) begin
+            if (frame_counter == 3)
+                frame_counter <= 0;
+            else
+                frame_counter = frame_counter + 1;
+        end
+        if (move_tick) begin
+            frame_counter <= 0;
+            if (mov[UP])
+                offset_y <= offset_y - 1;
+            if (mov[DOWN])
+                offset_y <= offset_y + 1;
+            if (mov[RIGHT])
+                offset_x <= offset_x + 1;
+            if (mov[LEFT])
+                offset_x <= offset_x - 1;
+        end
     end
 end
 
