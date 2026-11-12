@@ -81,10 +81,20 @@ vga_color color (
 );
 
 always @(posedge clk) begin
-    hsync_delay <= {hsync_delay[0], hsync};
-    vsync_delay <= {vsync_delay[0], vsync};
-    active_delay <= {active_delay[0], active_video};
-    frame_start_delay <= {frame_start_delay[0], frame_start};
+    if (rst) begin
+        // Syncs are active-low: idle high. Keep active/frame_start low so
+        // the (0,0) state held during reset doesn't leak out as extra pixels.
+        hsync_delay <= 2'b11;
+        vsync_delay <= 2'b11;
+        active_delay <= 2'b00;
+        frame_start_delay <= 2'b00;
+    end
+    else begin
+        hsync_delay <= {hsync_delay[0], hsync};
+        vsync_delay <= {vsync_delay[0], vsync};
+        active_delay <= {active_delay[0], active_video};
+        frame_start_delay <= {frame_start_delay[0], frame_start};
+    end
 
     h_d1 <= h_count;
     h_d2 <= h_d1;

@@ -43,6 +43,9 @@ initial begin
 //  $display("bg_color     = %h", dut.color.bg_color);
 //  $display("RGB          = %h", {dut.r, dut.g, dut.b});
 //  @(posedge clk);
+    // vga_timing uses a synchronous reset, so rst must be held across
+    // at least one posedge (two here, to also flush the 2-stage delay regs).
+    repeat (2) @(posedge clk);
     #1;
     rst = 0;
     //$dumpfile("vga_controller.vcd");
