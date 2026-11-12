@@ -18,13 +18,13 @@ vga_controller dut(
     .rst(rst),
     .offset_x(offset_x),
     .offset_y(offset_y),
-    .hsync(hsync),
-    .vsync(vsync),
+    .hsync_out(hsync),
+    .vsync_out(vsync),
     .r(r),
     .g(g),
     .b(b),
-    .active_video(active_video),
-    .frame_start()
+    .active_out(active_video),
+    .frame_start_out()
 );
 
 always #20 clk = ~clk;
