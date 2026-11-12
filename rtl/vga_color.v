@@ -21,6 +21,14 @@ localparam [11:0] WHITE = 12'hFFF;
 
 wire foreground;
 wire chk;
+wire [11:0] bg_color;
+
+tilemap u_tilemap (
+    .h_count(h_count),
+    .v_count(v_count),
+    .color(bg_color)
+);
+
 
 font_renderer u_font_renderer (
     .clk(clk),
@@ -37,15 +45,15 @@ wire in_box = (h_count >= offset_x) && (h_count < offset_x + BOX_SIZE) &&
 
 always @(*) begin
     {r, g, b} = BLACK;
-    if (in_box)
-        {r, g, b} = ORANGE;
-
-    if (chk)
-        {r, g, b} = BLUE;
 
     if (active_video) begin
-        if (foreground)
-            {r, g, b} = WHITE;
+       {r, g, b} = bg_color;
+
+      if (foreground)
+          {r, g, b} = WHITE;
+
+      if (in_box)
+           {r, g, b} = ORANGE;
 
     end
 end
