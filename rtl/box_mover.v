@@ -15,13 +15,13 @@ always @(posedge clk) begin
     end
     else if (frame_start) begin
         if (mov[UP])
-            offset_y <= offset_y - 10;
+            offset_y <= offset_y - 2;
         if (mov[DOWN])
-            offset_y <= offset_y + 10;
+            offset_y <= offset_y + 2;
         if (mov[RIGHT])
-            offset_x <= offset_x + 10;
+            offset_x <= offset_x + 2;
         if (mov[LEFT])
-            offset_x <= offset_x - 10;
+            offset_x <= offset_x - 2;
     end
 end
 

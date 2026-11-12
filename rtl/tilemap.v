@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 module tilemap (
     input wire [9:0] h_count,
     input wire [9:0] v_count,
@@ -13,7 +14,7 @@ initial begin
 end
 
 wire [4:0] tile_x = h_count[9:5];
-wire [3:0] tile_y = h_count[8:5];
+wire [3:0] tile_y = v_count[8:5];
 wire [8:0] index = (tile_y << 4) + (tile_y << 2) + tile_x; //y * 20 cheap
 
 assign color = palette[tiles[index]];
