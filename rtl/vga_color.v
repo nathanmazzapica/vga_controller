@@ -1,5 +1,5 @@
 module vga_color#(
-    parameter BOX_SIZE = 8
+    parameter BOX_SIZE = 32
 )(
     input wire clk,
     input wire [9:0] h_count,
@@ -54,7 +54,6 @@ always @(*) begin
 
       if (in_box)
            {r, g, b} = ORANGE;
-
     end
 end
 endmodule
