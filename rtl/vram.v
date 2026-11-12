@@ -2,7 +2,7 @@
 module vram(
 input wire clk,
 input wire write_en,
-input reg [7:0] data_in,
+input wire [7:0] data_in,
 input wire [12:0] write_addr,
 input wire [12:0] read_addr,
 output reg [7:0] data_out
