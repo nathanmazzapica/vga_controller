@@ -42,13 +42,13 @@ vga_controller u_vga (
     .rst(rst),
     .offset_x(box_x),
     .offset_y(box_y),
-    .hsync(Hsync),
-    .vsync(Vsync),
+    .hsync_out(Hsync),
+    .vsync_out(Vsync),
     .r(vgaRed),
     .g(vgaGreen),
     .b(vgaBlue),
-    .active_video(),
-    .frame_start(frame_start)
+    .active_out(),
+    .frame_start_out(frame_start)
 );
 
 endmodule
