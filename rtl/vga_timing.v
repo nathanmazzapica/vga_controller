@@ -43,6 +43,7 @@ always @(posedge clk) begin
         end
         else
             h_count <= h_count + 1'b1;
+
     end
 end
 

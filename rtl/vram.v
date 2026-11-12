@@ -10,17 +10,14 @@ output reg [7:0] data_out
 
 reg [7:0] vmem [0:4799];
 
+initial begin 
+    $readmemh("vram.mem", vmem);
+end
+
 always @(posedge clk) begin
     if (write_en)
         vmem[write_addr] <= data_in;
-    data_out <= 8'd65;
-
-    case (read_addr % 4)
-        0: data_out <= 8'd65;
-        1: data_out <= 8'd66;
-        2: data_out <= 8'd67;
-        3: data_out <= 8'd32;
-    endcase
+    data_out <= vmem[read_addr];
 end
 
 endmodule

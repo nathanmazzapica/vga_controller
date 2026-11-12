@@ -20,13 +20,15 @@ localparam [11:0] BLACK = 12'h000;
 localparam [11:0] WHITE = 12'hFFF;
 
 wire foreground;
+wire chk;
 
 font_renderer u_font_renderer (
     .clk(clk),
     .pixel_x(pixel_x),
     .pixel_y(pixel_y),
     .glyph(glyph),
-    .foreground(foreground)
+    .foreground(foreground),
+    .chk(chk)
 );
 
 
@@ -37,6 +39,9 @@ always @(*) begin
     {r, g, b} = BLACK;
     if (in_box)
         {r, g, b} = ORANGE;
+
+    if (chk)
+        {r, g, b} = BLUE;
 
     if (active_video) begin
         if (foreground)
