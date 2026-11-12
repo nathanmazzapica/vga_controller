@@ -20,6 +20,10 @@ reg [1:0] vsync_delay;
 reg [1:0] active_delay;
 reg [1:0] frame_start_delay;
 
+
+reg [9:0] h_d1, h_d2;
+reg [9:0] v_d1, v_d2;
+
 wire hsync;
 wire vsync;
 wire active_video;
@@ -63,8 +67,8 @@ font_rom u_font_rom(
 
 vga_color color (
     .clk(clk),
-    .h_count(h_count),
-    .v_count(v_count),
+    .h_count(h_d2),
+    .v_count(v_d2),
     .pixel_x(pixel_x),
     .pixel_y(pixel_y),
     .glyph(glyph),
@@ -81,6 +85,12 @@ always @(posedge clk) begin
     vsync_delay <= {vsync_delay[0], vsync};
     active_delay <= {active_delay[0], active_video};
     frame_start_delay <= {frame_start_delay[0], frame_start};
+
+    h_d1 <= h_count;
+    h_d2 <= h_d1;
+
+    v_d1 <= v_count;
+    v_d2 <= v_d1;
 end
 
 assign hsync_out = hsync_delay[1];
