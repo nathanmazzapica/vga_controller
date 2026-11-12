@@ -35,7 +35,14 @@ integer direction_y = 1;
 integer frame;
 
 initial begin
-    @(posedge clk);
+//  #5;
+
+//  $display("h_count      = %d", dut.h_count);
+//  $display("v_count      = %d", dut.v_count);
+//  $display("active_video = %b", dut.active_video);
+//  $display("bg_color     = %h", dut.color.bg_color);
+//  $display("RGB          = %h", {dut.r, dut.g, dut.b});
+//  @(posedge clk);
     #1;
     rst = 0;
     //$dumpfile("vga_controller.vcd");
