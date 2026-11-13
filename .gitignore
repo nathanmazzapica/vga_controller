@@ -5,3 +5,6 @@
 *.vcd
 *_sim
 *.nvim/
+build/
+sim/
+/*.mem
