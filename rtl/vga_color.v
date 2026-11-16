@@ -39,6 +39,21 @@ font_renderer u_font_renderer (
     .chk(chk)
 );
 
+wire [9:0] b2x = 9'd256;
+wire [9:0] b2y = 9'd128;
+wire hit;
+wire [3:0][9:0] sprite_x, sprite_y;
+assign sprite_x = {10'd400, 10'd300, 10'd200, 10'd100};
+assign sprite_y = {10'd350, 10'd300, 10'd200, 10'd100};
+sprite_renderer u_box2 (
+    .h_count(h_count),
+    .v_count(v_count),
+    .x(sprite_x),
+    .y(sprite_y),
+    .any_hit(hit)
+);
+
+
 
 wire in_box = (h_count >= offset_x) && (h_count < offset_x + BOX_SIZE) &&
                 (v_count >= offset_y) && (v_count < offset_y + BOX_SIZE);
@@ -51,6 +66,9 @@ always @(*) begin
 
       if (foreground)
           {r, g, b} = WHITE;
+
+      if (hit)
+          {r, g, b} = PURPLE;
 
       if (in_box)
            {r, g, b} = ORANGE;
