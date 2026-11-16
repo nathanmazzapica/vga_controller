@@ -48,7 +48,9 @@ CTRL_RTL := rtl/vga_controller.v \
             rtl/font_renderer.v \
             rtl/font_rom.v \
             rtl/tilemap.v \
-            rtl/vram.v
+            rtl/vram.v    \
+			rtl/sprite_renderer.sv \
+			rtl/sprite.sv
 
 CTRL_TB  := tb/vga_controller_tb.v
 CTRL_TOP := vga_controller_tb
