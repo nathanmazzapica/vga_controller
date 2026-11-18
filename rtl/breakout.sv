@@ -11,7 +11,7 @@ module breakout(
 
 wire pix_clk, locked;
 
-wire [3:0] mov = {btnU, btnR, btnL, btnD};
+wire [1:0] mov = {btnR, btnL};
 
 
 clk_wiz_0 u_clk(
@@ -40,6 +40,18 @@ vga_timing u_vga_timing (
     .v_count(v_count)
 );
 
+logic [9:0] paddle_x;
+logic [9:0] paddle_y;
+
+breakout_paddle u_paddle(
+    .clk(pix_clk),
+    .rst(rst),
+    .frame_start(frame_start),
+    .mov(mov),
+    .paddle_x(paddle_x),
+    .paddle_y(paddle_y)
+);
+
 logic [27:0] brick_occupancy;
 breakout_brick_occupancy u_brick_occupancy(
     .clk(clk),
@@ -61,11 +73,16 @@ breakout_tilemap u_tilemap(
     .draw_brick(draw_brick)
 );
 
+logic draw_player;
+assign draw_player  = (h_count >= paddle_x) & (h_count <= paddle_x + 10)
+                    & (v_count == paddle_y);
+
 breakout_color u_color(
     .active_video(active_video),
     .draw_wall(draw_wall),
     .draw_bg(draw_bg),
     .draw_brick(draw_brick),
+    .draw_player(draw_player),
     .r(vgaRed),
     .g(vgaGreen),
     .b(vgaBlue)

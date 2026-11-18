@@ -3,6 +3,7 @@ module breakout_color(
     input logic draw_wall,
     input logic draw_bg,
     input logic draw_brick,
+    input logic draw_player,
     output logic [3:0] r, g, b
 );
 
@@ -13,7 +14,7 @@ localparam [11:0] BLACK = 12'h000;
 localparam [11:0] WHITE = 12'hFFF;
 
 
-logic color;
+logic [11:0] color;
 
 
 always_comb begin
@@ -25,6 +26,8 @@ always_comb begin
             color = BACKGROUND;
         if (draw_brick)
             color = RED;
+        if (draw_player)
+            color = WHITE;
     end
 end
 
