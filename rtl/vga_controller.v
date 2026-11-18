@@ -41,6 +41,8 @@ vga_timing timing (
 );
 
 
+// These three components seem like they'd be better extracted into their own
+// module
 wire [12:0] vram_addr;
 text_renderer u_text_renderer (
     .h_count(h_count),
