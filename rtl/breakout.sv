@@ -30,7 +30,7 @@ logic [9:0] h_count;
 logic [9:0] v_count;
 
 vga_timing u_vga_timing (
-    .clk(clk),
+    .clk(pix_clk),
     .rst(rst),
     .hsync(Hsync),
     .vsync(Vsync),
@@ -70,7 +70,4 @@ breakout_color u_color(
     .g(vgaGreen),
     .b(vgaBlue)
 );
-
-
-
 endmodule
