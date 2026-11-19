@@ -1,38 +1,29 @@
-module breakout_paddle(
+module breakout_paddle #(
+    parameter int PADDLE_W = 110
+) (
     input logic clk,
     input logic rst,
-    input logic frame_start,
+    input logic move_tick,
     input logic [1:0] mov,
     output logic [9:0] paddle_x,
     output logic [9:0] paddle_y
     );
 localparam RIGHT = 1, LEFT = 0;
 
-logic [3:0] frame_counter;
-logic move_tick;
-assign move_tick = frame_start && (frame_counter == 8);
-
-initial begin
-    frame_counter = 0;
-end
+// Playfield interior is x = 170..489 (walls are tiles 16 and 49, 10 px each),
+// so the paddle's left edge stays >= 170 and its right edge <= 489.
+localparam int X_MIN = 170;
+localparam int X_MAX = 490 - PADDLE_W;
 
 always_ff @(posedge clk) begin
     if (rst) begin
         paddle_x <= 10'd270;
-        frame_counter <= 0;
     end else begin
-        if (frame_start) begin
-            if (frame_counter == 7)
-                frame_counter <= 0;
-            else
-                frame_counter = frame_counter + 1;
-        end
         if (move_tick) begin
-            frame_counter <= 0;
-            if (mov[RIGHT] && paddle_x < 490)
+            if (mov[RIGHT] && paddle_x < X_MAX)
                 paddle_x <= paddle_x + 1;
-            if (mov[LEFT] && paddle_x > 17)
-                paddle_x <= paddle_x -1;
+            if (mov[LEFT] && paddle_x > X_MIN)
+                paddle_x <= paddle_x - 1;
         end
     end
 end
