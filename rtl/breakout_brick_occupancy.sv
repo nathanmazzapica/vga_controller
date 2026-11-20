@@ -1,6 +1,7 @@
 module breakout_brick_occupancy (
     input logic clk,
     input logic rst,
+    input logic move_tick,
     input logic [27:0] bricks_hit,
     output logic [27:0] brick_occupancy
 );
@@ -11,7 +12,7 @@ module breakout_brick_occupancy (
 
     always_ff @(posedge clk) begin
         if (rst) brick_occupancy = '1;
-        else begin
+        else if (move_tick) begin
             brick_occupancy <= brick_occupancy & ~bricks_hit;
         end
     end

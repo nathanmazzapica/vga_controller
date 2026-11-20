@@ -94,6 +94,7 @@ module breakout (
     breakout_brick_occupancy u_brick_occupancy (
         .clk(clk),
         .rst(rst),
+        .move_tick(move_tick),
         .bricks_hit(bricks_hit),
         .brick_occupancy(brick_occupancy)
     );
