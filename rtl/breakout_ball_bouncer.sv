@@ -9,6 +9,7 @@ module breakout_ball_bouncer #(
     input logic [9:0] paddle_x,
     input logic [9:0] paddle_y,
     input logic [27:0] brick_occupancy,
+    output logic [27:0] bricks_hit,
     output logic bounce_x,
     output logic bounce_y
 );

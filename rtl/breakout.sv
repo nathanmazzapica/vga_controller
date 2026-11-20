@@ -90,10 +90,11 @@ module breakout (
     );
 
     logic [27:0] brick_occupancy;
+    logic [27:0] bricks_hit;
     breakout_brick_occupancy u_brick_occupancy (
         .clk(clk),
         .rst(rst),
-        .brick_addr(),
+        .bricks_hit(bricks_hit),
         .brick_occupancy(brick_occupancy)
     );
 
@@ -107,6 +108,7 @@ module breakout (
         .paddle_x(paddle_x),
         .paddle_y(paddle_y),
         .brick_occupancy(brick_occupancy),
+        .bricks_hit(bricks_hit),
         .bounce_x(bounce_x),
         .bounce_y(bounce_y)
     );
