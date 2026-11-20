@@ -36,7 +36,9 @@ module breakout_ball_bouncer #(
         end
     endgenerate
 
-    assign hit_brick = |brick_hits;
+
+    assign bricks_hit = brick_hits;
+    assign hit_brick  = |brick_hits;
 
 
 
