@@ -92,7 +92,7 @@ module breakout (
     logic [27:0] brick_occupancy;
     logic [27:0] bricks_hit;
     breakout_brick_occupancy u_brick_occupancy (
-        .clk(clk),
+        .clk(pix_clk),
         .rst(rst),
         .move_tick(move_tick),
         .bricks_hit(bricks_hit),
