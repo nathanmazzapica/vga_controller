@@ -52,7 +52,7 @@ module breakout (
         .move_tick(move_tick)
     );
 
-    localparam int PADDLE_W = 110;  // paddle width in px (draw + travel + collision)
+    localparam int PADDLE_W = 70;  // paddle width in px (draw + travel + collision)
 
     logic [9:0] paddle_x;
     logic [9:0] paddle_y;

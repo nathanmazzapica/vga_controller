@@ -28,7 +28,7 @@ module breakout_ball_bouncer #(
             for (c = 0; c < 4; c = c + 1) begin : cols
                 assign brick_hits[r*4+c] =
                 brick_occupancy[r*4+c] &&
-                ball_x_n >= (180 + c*80) &&
+                (ball_x_n + BALL_W) >= (180 + c*80) &&
                 ball_x_n <  (240 + c*80) &&
                 ball_y_n >= (70 + r*30) &&
                 ball_y_n <  (90 + r*30);
